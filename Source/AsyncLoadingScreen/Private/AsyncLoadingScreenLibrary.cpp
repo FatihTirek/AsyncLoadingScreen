@@ -14,6 +14,7 @@
 int32 UAsyncLoadingScreenLibrary::DisplayBackgroundIndex = -1;
 int32 UAsyncLoadingScreenLibrary::DisplayTipTextIndex = -1;
 int32 UAsyncLoadingScreenLibrary::DisplayMovieIndex = -1;
+FText UAsyncLoadingScreenLibrary::DisplayLoadingScreenText = FText::GetEmpty();
 bool  UAsyncLoadingScreenLibrary::bShowLoadingScreen = true;
 
 void UAsyncLoadingScreenLibrary::SetDisplayBackgroundIndex(int32 BackgroundIndex)
@@ -29,6 +30,11 @@ void UAsyncLoadingScreenLibrary::SetDisplayTipTextIndex(int32 TipTextIndex)
 void UAsyncLoadingScreenLibrary::SetDisplayMovieIndex(int32 MovieIndex)
 {
 	UAsyncLoadingScreenLibrary::DisplayMovieIndex = MovieIndex;	
+}
+
+void UAsyncLoadingScreenLibrary::SetDisplayLoadingScreenText(FText LoadingScreenText)
+{
+	UAsyncLoadingScreenLibrary::DisplayLoadingScreenText = LoadingScreenText;	
 }
 
 void UAsyncLoadingScreenLibrary::SetEnableLoadingScreen(bool bIsEnableLoadingScreen)

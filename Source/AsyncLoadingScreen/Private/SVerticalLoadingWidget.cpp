@@ -7,6 +7,7 @@
  ************************************************************************************/
 
 #include "SVerticalLoadingWidget.h"
+#include "AsyncLoadingScreenLibrary.h"
 #include "LoadingScreenSettings.h"
 #include "Widgets/Layout/SSpacer.h"
 #include "Widgets/Images/SImage.h"
@@ -23,16 +24,8 @@ void SVerticalLoadingWidget::Construct(const FArguments& InArgs, const FLoadingW
 	// Construct Loading Icon Widget
 	ConstructLoadingIcon(Settings);
 
-	EVisibility LoadingTextVisibility;
-
-	if (Settings.LoadingText.IsEmpty())
-	{
-		LoadingTextVisibility = EVisibility::Collapsed;
-	}
-	else
-	{
-		LoadingTextVisibility = EVisibility::SelfHitTestInvisible;
-	}
+	FText LoadingScreenText = UAsyncLoadingScreenLibrary::GetDisplayLoadingScreenText().IsEmpty() ? Settings.LoadingText : UAsyncLoadingScreenLibrary::GetDisplayLoadingScreenText();
+	EVisibility LoadingTextVisibility = LoadingScreenText.IsEmpty() ? EVisibility::Collapsed : EVisibility::SelfHitTestInvisible;
 
 	// If loading text is on the top
 	if (Settings.bLoadingTextTopPosition)
@@ -50,7 +43,7 @@ void SVerticalLoadingWidget::Construct(const FArguments& InArgs, const FLoadingW
 				.ShadowOffset(Settings.Appearance.ShadowOffset)
 				.ShadowColorAndOpacity(Settings.Appearance.ShadowColorAndOpacity)
 				.Justification(Settings.Appearance.Justification)
-				.Text(Settings.LoadingText)				
+				.Text(LoadingScreenText)				
 			];
 
 		// Add a Spacer in middle
@@ -108,7 +101,7 @@ void SVerticalLoadingWidget::Construct(const FArguments& InArgs, const FLoadingW
 				.ShadowOffset(Settings.Appearance.ShadowOffset)
 				.ShadowColorAndOpacity(Settings.Appearance.ShadowColorAndOpacity)
 				.Justification(Settings.Appearance.Justification)
-				.Text(Settings.LoadingText)				
+				.Text(LoadingScreenText)				
 			];
 	}
 

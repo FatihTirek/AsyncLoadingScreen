@@ -7,6 +7,7 @@
  ************************************************************************************/
 
 #include "SHorizontalLoadingWidget.h"
+#include "AsyncLoadingScreenLibrary.h"
 #include "LoadingScreenSettings.h"
 #include "Widgets/Layout/SSpacer.h"
 #include "Widgets/Images/SImage.h"
@@ -24,16 +25,8 @@ void SHorizontalLoadingWidget::Construct(const FArguments& InArgs, const FLoadin
 	// Construct Loading Icon Widget
 	ConstructLoadingIcon(Settings);
 
-	EVisibility LoadingTextVisibility;
-
-	if (Settings.LoadingText.IsEmpty())
-	{
-		LoadingTextVisibility = EVisibility::Collapsed;
-	}
-	else
-	{
-		LoadingTextVisibility = EVisibility::SelfHitTestInvisible;
-	}
+	FText LoadingScreenText = UAsyncLoadingScreenLibrary::GetDisplayLoadingScreenText().IsEmpty() ? Settings.LoadingText : UAsyncLoadingScreenLibrary::GetDisplayLoadingScreenText();
+	EVisibility LoadingTextVisibility = LoadingScreenText.IsEmpty() ? EVisibility::Collapsed : EVisibility::SelfHitTestInvisible;
 
 	// If loading text is on the right
 	if (Settings.bLoadingTextRightPosition)
@@ -70,7 +63,7 @@ void SHorizontalLoadingWidget::Construct(const FArguments& InArgs, const FLoadin
 				.ShadowOffset(Settings.Appearance.ShadowOffset)
 				.ShadowColorAndOpacity(Settings.Appearance.ShadowColorAndOpacity)
 				.Justification(Settings.Appearance.Justification)
-				.Text(Settings.LoadingText)				
+				.Text(LoadingScreenText)				
 			];
 	}
 
@@ -90,7 +83,7 @@ void SHorizontalLoadingWidget::Construct(const FArguments& InArgs, const FLoadin
 				.ShadowOffset(Settings.Appearance.ShadowOffset)
 				.ShadowColorAndOpacity(Settings.Appearance.ShadowColorAndOpacity)
 				.Justification(Settings.Appearance.Justification)
-				.Text(Settings.LoadingText)				
+				.Text(LoadingScreenText)				
 			];
 
 

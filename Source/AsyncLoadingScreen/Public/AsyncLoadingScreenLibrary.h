@@ -22,7 +22,8 @@ class ASYNCLOADINGSCREEN_API UAsyncLoadingScreenLibrary : public UBlueprintFunct
 private:
 	static int32 DisplayBackgroundIndex;
 	static int32 DisplayTipTextIndex;
-	static int32 DisplayMovieIndex;	
+	static int32 DisplayMovieIndex;
+	static FText DisplayLoadingScreenText;
 	static bool  bShowLoadingScreen;
 public:
 	
@@ -50,6 +51,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Async Loading Screen")
 	static void SetDisplayMovieIndex(int32 MovieIndex);
 
+	/**
+	 * Set the loading screen text that will be displayed on the loading screen.
+	 *
+	 * @param LoadingScreenText The text to be displayed on the loading screen.
+	 **/
+	UFUNCTION(BlueprintCallable, Category = "Async Loading Screen")
+	static void SetDisplayLoadingScreenText(FText LoadingScreenText);
 
 	/**
 	 * Set enable/disable the loading screen for next levels
@@ -78,5 +86,6 @@ public:
 	static inline int32 GetDisplayBackgroundIndex() { return DisplayBackgroundIndex; }
 	static inline int32 GetDisplayTipTextIndex() { return DisplayTipTextIndex; }
 	static inline int32 GetDisplayMovieIndex() { return DisplayMovieIndex; }
+	static inline FText GetDisplayLoadingScreenText() { return DisplayLoadingScreenText; }
 
 };
